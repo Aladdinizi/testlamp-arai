@@ -132,7 +132,7 @@ tr:hover td{background:#fafbff}
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h10M3 8h8M3 12h5"></path></svg>
       Cas de test
     </div>
-    <div class="nav-item active" onclick="nav('jdd')">
+    <div class="nav-item" onclick="nav('jdd')">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="1"></rect><path d="M1 6h14M5 6v7M10 6v7"></path></svg>
       Jeux de données
     </div>
@@ -146,7 +146,7 @@ tr:hover td{background:#fafbff}
       Exécution
     </div>
     <div class="nav-group">Suivi</div>
-    <div class="nav-item" onclick="nav('explora')">
+    <div class="nav-item active" onclick="nav('explora')">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"></circle><path d="M5 8 Q6 5 8 8 Q10 11 11 8"></path></svg>
       Tests exploratoires
     </div>
@@ -168,8 +168,8 @@ tr:hover td{background:#fafbff}
 
 <div class="main">
 <div class="topbar">
-  <h1 id="topbar-title">Jeux de données</h1>
-  <div class="btn-group" id="topbar-actions"><button class="btn btn-primary" onclick="openModal('jdd')">+ Nouveau jeu de données</button></div>
+  <h1 id="topbar-title">Tests exploratoires</h1>
+  <div class="btn-group" id="topbar-actions"><button class="btn btn-primary" onclick="openModal('explora')">+ Nouvelle session</button></div>
 </div>
 <div class="content">
 
@@ -215,7 +215,7 @@ tr:hover td{background:#fafbff}
 </div>
 
 <!-- JEUX DE DONNÉES -->
-<div class="section active" id="sec-jdd">
+<div class="section" id="sec-jdd">
   <div class="section-header">
     <div class="section-title">Jeux de données (<span id="jdd-count">1</span>)</div>
   </div>
@@ -263,7 +263,7 @@ tr:hover td{background:#fafbff}
 </div>
 
 <!-- TESTS EXPLORATOIRES -->
-<div class="section" id="sec-explora">
+<div class="section active" id="sec-explora">
   <div class="section-header">
     <div class="section-title">Tests exploratoires (<span id="exp-count">2</span>)</div>
   </div>
@@ -287,7 +287,7 @@ tr:hover td{background:#fafbff}
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border)">
         <div style="padding:12px 16px;border-right:1px solid var(--border)">
           <div style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Objectif</div>
-          <div style="font-size:13px;white-space:pre-line">Explorer le parcours utilisateur complet de la console ARAI de A a Z et remonter ce qui choque, les incoherences ou manques de clarte.</div>
+          <div style="font-size:13px;white-space:pre-line">Explorer le parcours utilisateur complet de la console ARAI de A a Z et remonter ce qui choque, les incoherences ou manques de clarté.</div>
         </div>
         <div style="padding:12px 16px">
           <div style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Charte de test</div>
@@ -467,7 +467,7 @@ tr:hover td{background:#fafbff}
       </tr></tbody>
         </table>
       </div>
-      <div style="padding:12px 16px;border-top:1px solid var(--border);background:#fffbf0;border-left:3px solid var(--warn)"><div style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Conclusion / Risques</div><div style="font-size:13px;white-space:pre-line">Le parcours complet est bloque des l inscription par des Internal Server Errors repetees. De nombreuses frictions UX et incoherences ont ete identifiees sur l ensemble des onglets.</div></div>
+      <div style="padding:12px 16px;border-top:1px solid var(--border);background:#fffbf0;border-left:3px solid var(--warn)"><div style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Conclusion / Risques</div><div style="font-size:13px;white-space:pre-line">De nombreuses frictions UX et incohérences ont été identifiées sur l ensemble des onglets.</div></div>
     </div><div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-bottom:16px;overflow:hidden">
       <div style="padding:14px 16px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start">
         <div>
