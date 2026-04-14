@@ -99,7 +99,7 @@ tr:hover td{background:#fafbff}
 .tab{padding:8px 16px;font-size:13px;cursor:pointer;color:var(--text2);border-bottom:2px solid transparent;margin-bottom:-1px}
 .tab.active{color:var(--c1);border-bottom-color:var(--c1);font-weight:500}
 </style>
-</head>
+<script id="__embedded_state__">window.__TESTLAMP_STATE__={"us":[],"tc":[],"cycles":[],"anomalies":[],"jdd":[{"id":"JDD-01","name":"Identifiants valides","desc":"","vars":[{"key":"email_valide","value":"aladdin@kaviar.app"},{"key":"mp_valide","value":"aladdin10"}]}],"explora":[{"id":"EXP-01","title":"Parcours utilisateur console ARAI","tester":"Aladdin","support":"Desktop","date":"2026-04-09","duration":"","env":"araipreprod.agence-xr.io","goal":"Explorer le parcours utilisateur complet de la console ARAI de A a Z et remonter ce qui choque, les incoherences ou manques de clarte.","charter":"Inclus : inscription, connexion, presentation, creation et configuration agent, onglets Agents / Bases de connaissances / Conversations / Outils / Documentation, suppression du compte","conclusion":"Le parcours complet est bloque des l inscription par des Internal Server Errors repetees. De nombreuses frictions UX et incoherences ont ete identifiees sur l ensemble des onglets.","obs":[{"section":"Inscription","action":"Champs obligatoires","observation":"Les champs obligatoires ne sont pas signales par un asterisque *","type":"ux"},{"section":"Inscription","action":"Format mot de passe","observation":"Le format attendu n est pas precise avant la soumission (longueur, majuscule, caracteres speciaux...)","type":"ux"},{"section":"Presentation","action":"Voir la presentation","observation":"Les diapositives defile trop rapidement, pas le temps de lire le texte avant de passer a la suivante","type":"ux"},{"section":"Creation & Config. agent","action":"Choisir une voix","observation":"Le texte du nom de la voix depasse du champ de selection","type":"bug"},{"section":"Creation & Config. agent","action":"Ecouter l apercu des voix","observation":"Les 3 dernieres voix de la liste ne disposent d aucun apercu sonore","type":"bug"},{"section":"Creation & Config. agent","action":"Comprendre le systeme langue / voix","observation":"Fonctionnement peu clair : la voix parle-t-elle forcement dans la langue de son drapeau ? La mention des accents entre parentheses ajoute a la confusion","type":"ux"},{"section":"Creation & Config. agent","action":"Apercu audio (configuration)","observation":"L icone Ecouter l apercu au-dessus du premier message ne produit aucune action au clic","type":"bug"},{"section":"Creation & Config. agent","action":"Support multilingue","observation":"Certaines langues proposees (ex : Norvegien) n ont aucune voix correspondante, incoherence entre langues disponibles et voix proposees","type":"bug"},{"section":"Creation & Config. agent","action":"Duree maximale de conversation","observation":"Le libelle Duree maximale d une conversation en secondes (60-3600) manque de clarte, comportement de l agent en fin de duree non explicite (coupure automatique ?)","type":"ux"},{"section":"Creation & Config. agent","action":"Tools & Integrations","observation":"Cette section reste en anglais meme lorsque l interface est parametree en francais","type":"bug"},{"section":"Creation & Config. agent","action":"Creer l agent (bouton)","observation":"Apres avoir appuye sur Creer Agent, un message pop-up confirme la creation mais le bouton reste grise pendant 8 a 15 secondes avant la redirection vers la page de l agent","type":"bug"},{"section":"Onglet Agents","action":"Trouver le bouton de creation","observation":"Le bouton + de creation d agent est difficile a trouver initialement, un libelle textuel aiderait","type":"ux"},{"section":"Onglet Agents","action":"Restreindre un agent","observation":"L action passe par un clic sur une icone cadenas, du temps a ete necessaire pour le comprendre","type":"ux"},{"section":"Onglet Agents","action":"Enlever la restriction","observation":"Complique de retrouver comment retirer la restriction 20 minutes plus tard, le bouton pourrait s appeler Gerer les restrictions","type":"ux"},{"section":"Onglet Agents","action":"Onglet Transferer agent","observation":"Depuis cet onglet on peut voir les agents transferes, mais on ne peut pas en transferer depuis cet endroit","type":"ux"},{"section":"Onglet Agents","action":"Bouton Modifier vs nom de l agent","observation":"Cliquer sur le nom de l agent permet de configurer le partage uniquement. Cliquer sur Modifier donne acces a tout le reste de la configuration, distinction peu evidente","type":"ux"},{"section":"Onglet Agents","action":"QR code de test","observation":"Le QR code genere renvoie vers une page d erreur, impossible de tester l agent","type":"bug"},{"section":"Onglet Bases de connaissances","action":"Restreindre une base de connaissances","observation":"Comme pour la restriction d agent, l action passe par une icone cadenas, du temps a ete necessaire pour le comprendre","type":"ux"},{"section":"Onglet Conversations","action":"Utiliser le filtre","observation":"La section Filtrer en haut a droite a un positionnement etrange, elle ne s integre pas naturellement dans le contexte de la page","type":"ux"},{"section":"Onglet Conversations","action":"Pagination","observation":"Le bouton Suivant reste cliquable a l infini meme lorsqu il n existe pas d autre page","type":"bug"},{"section":"Onglet Outils","action":"Description des outils","observation":"Les descriptions sont en anglais et ne sont pas entierement visibles","type":"bug"},{"section":"Onglet Outils","action":"Clic sur un outil","observation":"Les outils sont cliquables, cependant le clic ne produit rien sauf un rafraichissement de la page","type":"bug"},{"section":"Onglet Documentation","action":"Clic sur Documentation","observation":"La documentation s ouvre mais l interface bascule automatiquement en anglais","type":"bug"},{"section":"Onglet Documentation","action":"Retour au menu principal","observation":"Le logo ARAI en haut a gauche de la documentation ne renvoie pas au menu principal, difficile de retrouver son chemin","type":"ux"},{"section":"Onglet Documentation","action":"Retour manuel au menu","observation":"En revenant manuellement au menu principal, l interface repasse bien en francais","type":"info"},{"section":"Barre de recherche","action":"Faire des recherches","observation":"La barre de recherche en haut de l interface ne semble pas fonctionner","type":"bug"},{"section":"Suppression du compte","action":"Supprimer le compte","observation":"La suppression declenche un chargement incessant, aucun message de confirmation que le compte a bien ete supprime","type":"bug"}]},{"id":"EXP-02","title":"Parcours utilisateur mobile","tester":"Aladdin","support":"Mobile","date":"2026-04-09","duration":"","env":"araipreprod.agence-xr.io","goal":"Explorer le parcours utilisateur de la console ARAI sur mobile et identifier les problemes specifiques a l affichage et a la navigation mobile. Support : Google Pixel 7 Pro","charter":"Inclus : navigation generale, selection de voix, tableau de bord, bases de connaissances, restrictions, deconnexion","conclusion":"Plusieurs problemes critiques d affichage sur mobile : boutons coupes, menu burger non cliquable, clavier intempestif. La deconnexion reste introuvable.","obs":[{"section":"Selection de voix","action":"Clic sur le selecteur de langue","observation":"Sur mobile, le clavier virtuel s active automatiquement lors du clic sur le selecteur de langue, masque une partie de l ecran. Le meme probleme se produit sur Gerer les agents partages et Gerer les restrictions de base de connaissances","type":"ux"},{"section":"Onglet Tableau de bord","action":"Espacement du titre","observation":"L espace entre le titre Tableau de bord, le bouton Actualiser et la description semble insuffisant, manque d aeration","type":"ux"},{"section":"Onglet Tableau de bord","action":"Icones information i","observation":"Au clic sur une icone i, le message d information s affiche une demi-seconde puis l utilisateur est redirige vers la page associee au lieu de simplement afficher l information","type":"bug"},{"section":"Boutons coupes","action":"Ajouter une base de connaissances","observation":"Dans l onglet Bases de connaissances, le bouton d ajout est coupe et partiellement masque","type":"bug"},{"section":"Boutons coupes","action":"Supprimer un serveur MCP","observation":"En cliquant sur un serveur, on arrive sur la page Modifier le serveur MCP, l icone Supprimer a droite de l ecran est coupee et peu visible","type":"bug"},{"section":"Menu burger","action":"Gerer les restrictions d agents","observation":"Depuis cette page, le menu burger est visible en haut a gauche mais n est pas cliquable","type":"bug"},{"section":"Menu burger","action":"Gerer les restrictions de base de connaissances","observation":"Meme comportement - menu burger visible mais non fonctionnel","type":"bug"},{"section":"Deconnexion","action":"Se deconnecter","observation":"Impossible de trouver le bouton de deconnexion, son emplacement n est pas visible ou intuitif sur mobile","type":"ux"}]}],"execData":{},"usC":1,"tcC":1,"cyC":1,"anC":1,"jddC":2,"expC":3};</script></head>
 <body>
 <div class="app">
 <div class="sidebar">
@@ -132,7 +132,7 @@ tr:hover td{background:#fafbff}
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h10M3 8h8M3 12h5"></path></svg>
       Cas de test
     </div>
-    <div class="nav-item" onclick="nav('jdd')">
+    <div class="nav-item active" onclick="nav('jdd')">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="1"></rect><path d="M1 6h14M5 6v7M10 6v7"></path></svg>
       Jeux de données
     </div>
@@ -146,7 +146,7 @@ tr:hover td{background:#fafbff}
       Exécution
     </div>
     <div class="nav-group">Suivi</div>
-    <div class="nav-item active" onclick="nav('explora')">
+    <div class="nav-item" onclick="nav('explora')">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"></circle><path d="M5 8 Q6 5 8 8 Q10 11 11 8"></path></svg>
       Tests exploratoires
     </div>
@@ -168,8 +168,8 @@ tr:hover td{background:#fafbff}
 
 <div class="main">
 <div class="topbar">
-  <h1 id="topbar-title">Tests exploratoires</h1>
-  <div class="btn-group" id="topbar-actions"><button class="btn btn-primary" onclick="openModal('explora')">+ Nouvelle session</button></div>
+  <h1 id="topbar-title">Jeux de données</h1>
+  <div class="btn-group" id="topbar-actions"><button class="btn btn-primary" onclick="openModal('jdd')">+ Nouveau jeu de données</button></div>
 </div>
 <div class="content">
 
@@ -199,7 +199,7 @@ tr:hover td{background:#fafbff}
   </div>
   <div class="table-wrap">
     <table><thead><tr><th>ID</th><th>Titre</th><th>Description</th><th>Priorité</th><th>Critères d'acceptation</th><th>Cas liés</th><th></th></tr></thead>
-    <tbody id="us-table"><tr><td colspan="7" class="empty">Aucune user story.</td></tr></tbody></table>
+    <tbody id="us-table"></tbody></table>
   </div>
 </div>
 
@@ -210,12 +210,12 @@ tr:hover td{background:#fafbff}
   </div>
   <div class="table-wrap">
     <table><thead><tr><th>ID</th><th>Titre</th><th>US</th><th>Type</th><th>Précondition</th><th>Étapes &amp; Résultats attendus</th><th>Statut</th><th></th></tr></thead>
-    <tbody id="tc-table"><tr><td colspan="8" class="empty">Aucun cas de test.</td></tr></tbody></table>
+    <tbody id="tc-table"></tbody></table>
   </div>
 </div>
 
 <!-- JEUX DE DONNÉES -->
-<div class="section" id="sec-jdd">
+<div class="section active" id="sec-jdd">
   <div class="section-header">
     <div class="section-title">Jeux de données (<span id="jdd-count">1</span>)</div>
   </div>
@@ -263,7 +263,7 @@ tr:hover td{background:#fafbff}
 </div>
 
 <!-- TESTS EXPLORATOIRES -->
-<div class="section active" id="sec-explora">
+<div class="section" id="sec-explora">
   <div class="section-header">
     <div class="section-title">Tests exploratoires (<span id="exp-count">2</span>)</div>
   </div>
@@ -287,7 +287,7 @@ tr:hover td{background:#fafbff}
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border)">
         <div style="padding:12px 16px;border-right:1px solid var(--border)">
           <div style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Objectif</div>
-          <div style="font-size:13px;white-space:pre-line">Explorer le parcours utilisateur complet de la console ARAI de A a Z et remonter ce qui choque, les incoherences ou manques de clarté.</div>
+          <div style="font-size:13px;white-space:pre-line">Explorer le parcours utilisateur complet de la console ARAI de A a Z et remonter ce qui choque, les incoherences ou manques de clarte.</div>
         </div>
         <div style="padding:12px 16px">
           <div style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Charte de test</div>
@@ -467,7 +467,7 @@ tr:hover td{background:#fafbff}
       </tr></tbody>
         </table>
       </div>
-      <div style="padding:12px 16px;border-top:1px solid var(--border);background:#fffbf0;border-left:3px solid var(--warn)"><div style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Conclusion / Risques</div><div style="font-size:13px;white-space:pre-line">De nombreuses frictions UX et incohérences ont été identifiées sur l ensemble des onglets.</div></div>
+      <div style="padding:12px 16px;border-top:1px solid var(--border);background:#fffbf0;border-left:3px solid var(--warn)"><div style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Conclusion / Risques</div><div style="font-size:13px;white-space:pre-line">Le parcours complet est bloque des l inscription par des Internal Server Errors repetees. De nombreuses frictions UX et incoherences ont ete identifiees sur l ensemble des onglets.</div></div>
     </div><div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-bottom:16px;overflow:hidden">
       <div style="padding:14px 16px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start">
         <div>
@@ -621,7 +621,7 @@ tr:hover td{background:#fafbff}
 <div class="modal">
   <h2 id="tc-modal-title">Nouveau cas de test</h2>
   <div class="form-row"><label>Titre *</label><input id="tc-title" placeholder="Ex : Connexion avec identifiants valides"></div>
-  <div class="form-row"><label>User Story liée</label><select id="tc-us"><option value="">Aucune US</option></select></div>
+  <div class="form-row"><label>User Story liée</label><select id="tc-us"></select></div>
   <div class="form-row"><label>Type</label><select id="tc-type"><option>Nominal</option><option>Alternatif</option><option>Erreur</option><option>Limite</option></select></div>
   <div class="form-row"><label>Précondition</label><input id="tc-pre"></div>
   <div class="form-row">
@@ -629,10 +629,7 @@ tr:hover td{background:#fafbff}
       <label style="margin:0">Étapes &amp; Résultats attendus</label>
       <button type="button" class="btn btn-sm" onclick="addStep()" style="font-size:11px">+ Ajouter une étape</button>
     </div>
-    <div id="steps-container"><div class="step-row" style="display: grid; grid-template-columns: auto 1fr 1fr auto; gap: 8px; align-items: start; margin-bottom: 8px; padding: 10px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;"><div style="padding-top:8px;font-size:12px;font-weight:600;color:var(--text2);min-width:20px">1</div>
-    <div><label style="font-size:11px;color:var(--text2);margin-bottom:3px;display:block">Action</label><textarea placeholder="Ex : Cliquer sur Se connecter" style="width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:5px;font-size:13px;font-family:inherit;background:var(--bg);resize:vertical;min-height:70px;line-height:1.5"></textarea></div>
-    <div><label style="font-size:11px;color:var(--c1);margin-bottom:3px;display:block">Résultat attendu</label><textarea placeholder="Ex : L'utilisateur est redirigé vers le tableau de bord" style="width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:5px;font-size:13px;font-family:inherit;background:var(--bg);resize:vertical;min-height:70px;line-height:1.5"></textarea></div>
-    <div style="padding-top:22px"><button type="button" onclick="removeStep(this)" style="padding:4px 8px;border:1px solid var(--border);border-radius:4px;background:var(--bg);cursor:pointer;font-size:16px;color:var(--text2);line-height:1">×</button></div></div></div>
+    <div id="steps-container"></div>
   </div>
   <div class="modal-footer">
     <button class="btn" onclick="closeModals()">Annuler</button>
@@ -770,6 +767,14 @@ Exclus : analytiques, documentation" style="min-height:70px"></textarea></div>
 <script>
 const SK = 'arai_testmanager_v2';
 function loadState() {
+  // Check for embedded state first (from exported file)
+  if(window.__TESTLAMP_STATE__) {
+    const embedded = window.__TESTLAMP_STATE__;
+    // Also save to localStorage for future sessions
+    try { localStorage.setItem(SK, JSON.stringify(embedded)); } catch(e){}
+    window.__TESTLAMP_STATE__ = null;
+    return embedded;
+  }
   try { const s = localStorage.getItem(SK); if(s) return JSON.parse(s); } catch(e){}
   return {us:[],tc:[],cycles:[],anomalies:[],jdd:[],explora:[],execData:{},usC:1,tcC:1,cyC:1,anC:1,jddC:1,expC:1};
 }
@@ -1238,159 +1243,13 @@ function resolveJDD(text,jddId){
 
 function exportApp(){
   try {
-    const html=document.documentElement.outerHTML;
-    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url;
-    a.download='TestLamp_ARAI.html';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(()=>{URL.revokeObjectURL(url);document.body.removeChild(a);},200);
-  } catch(e){alert('Erreur export: '+e.message);}
-}
-
-document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModals();}));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModals();});
-
-function renderExplora(){
-  document.getElementById('exp-count').textContent=state.explora.length;
-  const el=document.getElementById('exp-list');
-  if(state.explora.length===0){el.innerHTML='<div class="empty">Aucune session exploratoire. Cliquez sur "+ Nouvelle session".</div>';return;}
-  el.innerHTML=state.explora.map(s=>{
-    const sevMap={bug:'b-fail',ux:'b-block',info:'b-todo',suggestion:'b-low'};
-    const sevLbl={bug:'Bug',ux:'Friction UX',info:'Info',suggestion:'Suggestion'};
-    const obsHtml=s.obs&&s.obs.length>0?s.obs.map(o=>`
-      <tr>
-        <td style="font-size:12px;white-space:nowrap">${o.section||'—'}</td>
-        <td style="font-size:12px">${o.action||'—'}</td>
-        <td style="font-size:12px;color:var(--text2);white-space:pre-line">${o.observation||'—'}</td>
-        <td><span class="badge ${sevMap[o.type]||'b-todo'}">${sevLbl[o.type]||o.type||'—'}</span></td>
-      </tr>`).join(''):'<tr><td colspan="4" class="empty" style="padding:12px">Aucune observation.</td></tr>';
-    return`<div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-bottom:16px;overflow:hidden">
-      <div style="padding:14px 16px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start">
-        <div>
-          <div style="font-size:15px;font-weight:600;margin-bottom:4px">${s.title}</div>
-          <div style="font-size:12px;color:var(--text2);display:flex;gap:16px;flex-wrap:wrap">
-            <span>📅 ${s.date||'—'}</span>
-            <span>👤 ${s.tester||'—'}</span>
-            <span>💻 ${s.support||'—'}</span>
-            ${s.duration?`<span>⏱ ${s.duration}</span>`:''}
-            ${s.env?`<span>🌐 ${s.env}</span>`:''}
-          </div>
-        </div>
-        <div style="display:flex;gap:6px;flex-shrink:0">
-          <button class="btn btn-sm" onclick="editExplora('${s.id}')">Modifier</button>
-          <button class="btn btn-sm" style="color:var(--danger)" onclick="deleteExplora('${s.id}')">Suppr.</button>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border)">
-        <div style="padding:12px 16px;border-right:1px solid var(--border)">
-          <div style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Objectif</div>
-          <div style="font-size:13px;white-space:pre-line">${s.goal||'—'}</div>
-        </div>
-        <div style="padding:12px 16px">
-          <div style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Charte de test</div>
-          <div style="font-size:13px;white-space:pre-line">${s.charter||'—'}</div>
-        </div>
-      </div>
-      <div style="padding:0">
-        <table style="width:100%;border-collapse:collapse;font-size:13px">
-          <thead><tr style="background:var(--bg2)">
-            <th style="padding:8px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);white-space:nowrap">Section</th>
-            <th style="padding:8px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border)">Action</th>
-            <th style="padding:8px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border)">Observation</th>
-            <th style="padding:8px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border)">Type</th>
-          </tr></thead>
-          <tbody>${obsHtml}</tbody>
-        </table>
-      </div>
-      ${s.conclusion?`<div style="padding:12px 16px;border-top:1px solid var(--border);background:#fffbf0;border-left:3px solid var(--warn)"><div style="font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Conclusion / Risques</div><div style="font-size:13px;white-space:pre-line">${s.conclusion}</div></div>`:''}
-    </div>`;
-  }).join('');
-}
-
-let editExpId=null;
-function openExploraModal(){
-  closeModals(); editExpId=null;
-  document.getElementById('exp-modal-title').textContent='Nouvelle session de test exploratoire';
-  ['exp-title','exp-duration','exp-conclusion','exp-goal','exp-charter'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('exp-tester').value='Aladdin';
-  document.getElementById('exp-env').value='araipreprod.agence-xr.io';
-  document.getElementById('exp-support').value='Desktop';
-  document.getElementById('exp-date').value=new Date().toISOString().split('T')[0];
-  document.getElementById('exp-obs-container').innerHTML='';
-  addExpObs();
-  document.getElementById('modal-explora').classList.add('open');
-}
-function editExplora(id){
-  const s=state.explora.find(x=>x.id===id); if(!s) return; editExpId=id;
-  document.getElementById('exp-modal-title').textContent='Modifier la session';
-  document.getElementById('exp-title').value=s.title;
-  document.getElementById('exp-tester').value=s.tester||'';
-  document.getElementById('exp-support').value=s.support||'Desktop';
-  document.getElementById('exp-date').value=s.date||'';
-  document.getElementById('exp-duration').value=s.duration||'';
-  document.getElementById('exp-env').value=s.env||'';
-  document.getElementById('exp-goal').value=s.goal||'';
-  document.getElementById('exp-charter').value=s.charter||'';
-  document.getElementById('exp-conclusion').value=s.conclusion||'';
-  document.getElementById('exp-obs-container').innerHTML='';
-  (s.obs||[{section:'',action:'',observation:'',type:'bug'}]).forEach(o=>addExpObsRow(o));
-  document.getElementById('modal-explora').classList.add('open');
-}
-function addExpObs(){addExpObsRow({section:'',action:'',observation:'',type:'bug'});}
-function addExpObsRow(data){
-  const c=document.getElementById('exp-obs-container');
-  const div=document.createElement('div');
-  div.style.cssText='background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:10px;margin-bottom:8px';
-  div.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:8px">
-    <input placeholder="Section (ex: Onglet Agents)" value="${(data.section||'').replace(/"/g,'&quot;')}" style="padding:7px 10px;border:1px solid var(--border);border-radius:5px;font-size:13px;font-family:inherit;background:var(--bg)">
-    <input placeholder="Action effectuée" value="${(data.action||'').replace(/"/g,'&quot;')}" style="padding:7px 10px;border:1px solid var(--border);border-radius:5px;font-size:13px;font-family:inherit;background:var(--bg)">
-    <select style="padding:7px 10px;border:1px solid var(--border);border-radius:5px;font-size:13px;font-family:inherit;background:var(--bg)">
-      <option value="bug" ${data.type==='bug'?'selected':''}>Bug</option>
-      <option value="ux" ${data.type==='ux'?'selected':''}>Friction UX</option>
-      <option value="info" ${data.type==='info'?'selected':''}>Info</option>
-      <option value="suggestion" ${data.type==='suggestion'?'selected':''}>Suggestion</option>
-    </select>
-  </div>
-  <div style="display:flex;gap:8px;align-items:flex-start">
-    <textarea placeholder="Observation détaillée..." style="flex:1;padding:7px 10px;border:1px solid var(--border);border-radius:5px;font-size:13px;font-family:inherit;background:var(--bg);resize:vertical;min-height:60px;line-height:1.5">${(data.observation||'').replace(/</g,'&lt;')}</textarea>
-    <button type="button" onclick="this.closest('div').parentElement.remove()" style="padding:4px 8px;border:1px solid var(--border);border-radius:4px;background:var(--bg);cursor:pointer;font-size:16px;color:var(--text2);line-height:1;margin-top:2px">×</button>
-  </div>`;
-  c.appendChild(div);
-}
-function getExpObs(){
-  return [...document.querySelectorAll('#exp-obs-container > div')].map(r=>{
-    const inputs=r.querySelectorAll('input');
-    const sel=r.querySelector('select');
-    const ta=r.querySelector('textarea');
-    return{section:inputs[0].value.trim(),action:inputs[1].value.trim(),type:sel.value,observation:ta.value.trim()};
-  }).filter(o=>o.observation||o.action);
-}
-function saveExplora(){
-  const title=document.getElementById('exp-title').value.trim(); if(!title){alert('Titre obligatoire.');return;}
-  const data={title,tester:document.getElementById('exp-tester').value,support:document.getElementById('exp-support').value,date:document.getElementById('exp-date').value,duration:document.getElementById('exp-duration').value,env:document.getElementById('exp-env').value,goal:document.getElementById('exp-goal').value,charter:document.getElementById('exp-charter').value,conclusion:document.getElementById('exp-conclusion').value,obs:getExpObs()};
-  if(editExpId){const s=state.explora.find(x=>x.id===editExpId);Object.assign(s,data);}
-  else{const id='EXP-'+String(state.expC++).padStart(2,'0');state.explora.push({id,...data});}
-  saveState();closeModals();renderExplora();
-}
-function deleteExplora(id){if(!confirm('Supprimer cette session ?'))return;state.explora=state.explora.filter(s=>s.id!==id);saveState();renderExplora();}
-
-document.addEventListener('keydown',function(e){
-  if(e.altKey && e.key==='Enter'){
-    const el=document.activeElement;
-    if(el && el.tagName==='TEXTAREA'){
-      e.preventDefault();
-      const start=el.selectionStart;
-      const end=el.selectionEnd;
-      el.value=el.value.slice(0,start)+'\n'+el.value.slice(end);
-      el.selectionStart=el.selectionEnd=start+1;
-    }
-  }
-});
-renderDash();
-</script>
+    // Serialize current state into the HTML so data travels with the file
+    const stateJson = JSON.stringify(state);
+    let html = document.documentElement.outerHTML;
+    // Replace the loadState function to return embedded data on first load
+    const injection = '<script id="__embedded_state__">window.__TESTLAMP_STATE__=' + stateJson + ';</' + 'script>';
+    // Remove previous injection if any
+    html = html.replace(/
 
 
 </body></html>
