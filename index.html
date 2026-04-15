@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TestLamp — ARAI</title>
+<title>TestLamp</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f6f9;color:#1a1a2e;font-size:14px}
@@ -80,12 +80,11 @@ tr:hover td{background:#fafbff}
 .coverage-bar{flex:1}
 .coverage-count{flex:0 0 70px;font-size:12px;color:var(--text2);text-align:right}
 .empty{padding:40px;text-align:center;color:var(--text2);font-size:13px}
-.project-bar{display:flex;gap:8px;padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:center}
-.project-tab{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--text2);transition:all .15s}
-.project-tab:hover{border-color:var(--c2);color:var(--c1)}
-.project-tab.active{color:#fff;border-color:transparent}
-.project-tab-all{background:var(--bg2)}
-.project-tab-all.active{background:var(--text2)}
+
+.project-bar{display:flex;gap:8px;padding:8px 20px;background:var(--bg);border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:center;flex-shrink:0}
+.prj-tab{padding:4px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1.5px solid var(--border);color:var(--text2);transition:all .15s;white-space:nowrap}
+.prj-tab:hover{border-color:var(--c2);color:var(--c1)}
+.prj-tab.on{color:#fff;border-color:transparent}
 .exec-steps{background:var(--bg2);border-radius:6px;padding:12px;font-size:13px;line-height:1.8;margin-bottom:12px;border:1px solid var(--border)}
 .exec-expected{padding:10px 14px;background:#e8f0fb;border-radius:6px;font-size:13px;margin-bottom:14px;color:var(--c1);border-left:3px solid var(--c2)}
 .cycle-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px}
@@ -122,7 +121,7 @@ tr:hover td{background:#fafbff}
 </svg></div>
     <div>
       <div class="logo-title" style="font-size:17px;letter-spacing:.5px">TestLamp</div>
-      <div class="logo-sub">ARAI</div>
+      <div class="logo-sub">Gestion de tests</div>
     </div>
   </div>
   <nav class="nav">
@@ -135,6 +134,7 @@ tr:hover td{background:#fafbff}
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="13" rx="1"/><rect x="9" y="1" width="6" height="8" rx="1"/><rect x="9" y="11" width="6" height="3" rx="1"/></svg>
       Projets
     </div>
+
     <div class="nav-group">Conception</div>
     <div class="nav-item" onclick="nav('us')">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="1.5"/><line x1="5" y1="6" x2="11" y2="6"/><line x1="5" y1="9" x2="9" y2="9"/></svg>
@@ -188,10 +188,11 @@ tr:hover td{background:#fafbff}
 
 <!-- PROJETS -->
 <div class="section" id="sec-projects">
-  <div class="section-header">
+  <div class="section-header" style="margin-bottom:14px">
     <div class="section-title">Projets (<span id="prj-count">0</span>)</div>
+    <button class="btn btn-primary" onclick="openPrjModal()">+ Nouveau projet</button>
   </div>
-  <div id="prj-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px"></div>
+  <div id="prj-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px"></div>
 </div>
 
 <!-- DASHBOARD -->
@@ -328,24 +329,24 @@ tr:hover td{background:#fafbff}
 </div>
 
 <!-- MODAL PROJECT -->
-<div class="modal-bg" id="modal-project">
-<div class="modal" style="width:460px">
+<div class="modal-bg" id="modal-prj">
+<div class="modal" style="width:440px">
   <h2 id="prj-modal-title">Nouveau projet</h2>
-  <div class="form-row"><label>Nom du projet *</label><input id="prj-name" placeholder="Ex : POESIAR"></div>
-  <div class="form-row"><label>Description</label><input id="prj-desc" placeholder="Ex : Application de gestion de poèmes"></div>
+  <div class="form-row"><label>Nom *</label><input id="prj-name" placeholder="Ex : POESIAR"></div>
+  <div class="form-row"><label>Description</label><input id="prj-desc" placeholder="Courte description..."></div>
   <div class="form-row"><label>Couleur</label>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px" id="prj-colors">
-      <div class="color-pick active" data-color="1F4E79" style="width:28px;height:28px;border-radius:50%;background:#1F4E79;cursor:pointer;border:3px solid #1F4E79"></div>
-      <div class="color-pick" data-color="6C3483" style="width:28px;height:28px;border-radius:50%;background:#6C3483;cursor:pointer;border:3px solid transparent"></div>
-      <div class="color-pick" data-color="1A7A3C" style="width:28px;height:28px;border-radius:50%;background:#1A7A3C;cursor:pointer;border:3px solid transparent"></div>
-      <div class="color-pick" data-color="C0392B" style="width:28px;height:28px;border-radius:50%;background:#C0392B;cursor:pointer;border:3px solid transparent"></div>
-      <div class="color-pick" data-color="D68910" style="width:28px;height:28px;border-radius:50%;background:#D68910;cursor:pointer;border:3px solid transparent"></div>
-      <div class="color-pick" data-color="117A65" style="width:28px;height:28px;border-radius:50%;background:#117A65;cursor:pointer;border:3px solid transparent"></div>
+    <div style="display:flex;gap:10px;margin-top:6px">
+      <div class="cpick" data-c="1F4E79" style="width:26px;height:26px;border-radius:50%;background:#1F4E79;cursor:pointer"></div>
+      <div class="cpick" data-c="6C3483" style="width:26px;height:26px;border-radius:50%;background:#6C3483;cursor:pointer"></div>
+      <div class="cpick" data-c="1A7A3C" style="width:26px;height:26px;border-radius:50%;background:#1A7A3C;cursor:pointer"></div>
+      <div class="cpick" data-c="C0392B" style="width:26px;height:26px;border-radius:50%;background:#C0392B;cursor:pointer"></div>
+      <div class="cpick" data-c="D68910" style="width:26px;height:26px;border-radius:50%;background:#D68910;cursor:pointer"></div>
+      <div class="cpick" data-c="117A65" style="width:26px;height:26px;border-radius:50%;background:#117A65;cursor:pointer"></div>
     </div>
   </div>
   <div class="modal-footer">
     <button class="btn" onclick="closeModals()">Annuler</button>
-    <button class="btn btn-primary" onclick="saveProject()">Enregistrer</button>
+    <button class="btn btn-primary" onclick="savePrj()">Enregistrer</button>
   </div>
 </div>
 </div>
@@ -354,7 +355,7 @@ tr:hover td{background:#fafbff}
 <div class="modal-bg" id="modal-us">
 <div class="modal">
   <h2 id="us-modal-title">Nouvelle User Story</h2>
-  <div class="form-row"><label>Projet</label><select id="us-project"></select></div>
+  <div class="form-row"><label>Projet</label><select id="us-prj" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit"></select></div>
   <div class="form-row"><label>Titre *</label><input id="us-title" placeholder="Ex : Créer un agent IA"></div>
   <div class="form-row"><label>Description</label><textarea id="us-desc" placeholder="En tant qu'utilisateur, je veux..." style="min-height:80px"></textarea></div>
   <div class="form-row"><label>Priorité</label><select id="us-prio"><option>Haute</option><option>Moyenne</option><option>Basse</option></select></div>
@@ -370,7 +371,7 @@ tr:hover td{background:#fafbff}
 <div class="modal-bg" id="modal-tc">
 <div class="modal">
   <h2 id="tc-modal-title">Nouveau cas de test</h2>
-  <div class="form-row"><label>Projet</label><select id="tc-project"></select></div>
+  <div class="form-row"><label>Projet</label><select id="tc-prj" onchange="updateLinkedSelects(this.value)" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit"></select></div>
   <div class="form-row"><label>Titre *</label><input id="tc-title" placeholder="Ex : Connexion avec identifiants valides"></div>
   <div class="form-row"><label>User Story liée</label><select id="tc-us"></select></div>
   <div class="form-row"><label>Type</label><select id="tc-type"><option>Nominal</option><option>Alternatif</option><option>Erreur</option><option>Limite</option></select></div>
@@ -393,6 +394,7 @@ tr:hover td{background:#fafbff}
 <div class="modal-bg" id="modal-jdd">
 <div class="modal">
   <h2 id="jdd-modal-title">Nouveau jeu de données</h2>
+  <div class="form-row"><label>Projet</label><select id="jdd-prj" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit"></select></div>
   <div class="form-row"><label>Nom du jeu *</label><input id="jdd-name" placeholder="Ex : Utilisateur valide, Données limites..."></div>
   <div class="form-row"><label>Description</label><input id="jdd-desc" placeholder="Ex : Compte confirmé avec droits admin"></div>
   <div class="form-row">
@@ -431,7 +433,7 @@ tr:hover td{background:#fafbff}
 <div class="modal-bg" id="modal-anomaly">
 <div class="modal">
   <h2 id="an-modal-title">Nouveau ticket d'anomalie</h2>
-  <div class="form-row"><label>Projet</label><select id="an-project"></select></div>
+  <div class="form-row"><label>Projet</label><select id="an-prj" onchange="updateLinkedSelects(this.value)" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit"></select></div>
   <div class="form-row"><label>Titre *</label><input id="an-title" placeholder="Ex : Internal Server Error à la création de compte"></div>
   <div class="form-row"><label>Sévérité</label>
     <select id="an-sev"><option>Critique</option><option>Majeur</option><option>Mineur</option><option>Suggestion</option></select>
@@ -463,8 +465,8 @@ tr:hover td{background:#fafbff}
 <div class="modal-bg" id="modal-explora">
 <div class="modal" style="width:700px">
   <h2 id="exp-modal-title">Nouvelle session de test exploratoire</h2>
+  <div class="form-row"><label>Projet</label><select id="exp-prj" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit"></select></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-    <div class="form-row"><label>Projet</label><select id="exp-project"></select></div>
     <div class="form-row"><label>Titre de la session *</label><input id="exp-title" placeholder="Ex : Parcours utilisateur console"></div>
     <div class="form-row"><label>Support</label>
       <select id="exp-support"><option>Desktop</option><option>Mobile</option><option>Desktop & Mobile</option></select>
@@ -515,7 +517,7 @@ tr:hover td{background:#fafbff}
 </div>
 
 <script>
-const SK = 'arai_testmanager_v3';
+const SK = 'arai_testmanager_v7';
 function loadState() {
   const empty = {projects:[{id:'PRJ-01',name:'ARAI Console',color:'1F4E79',desc:'Console de gestion des agents ARAI — preprod'},{id:'PRJ-02',name:'POESIAR',color:'6C3483',desc:''}],us:[],tc:[],cycles:[],anomalies:[],jdd:[],explora:[],execData:{},usC:1,tcC:1,cyC:1,anC:1,jddC:1,expC:1,prjC:3};
   try {
@@ -538,7 +540,7 @@ function saveState(){ localStorage.setItem(SK, JSON.stringify(state)); }
 let state = loadState();
 
 if(!state.explora || state.explora.length === 0) {
-  state.explora = JSON.parse('[{"id":"EXP-01","title":"Parcours utilisateur console ARAI","tester":"Aladdin","support":"Desktop","date":"2026-04-09","duration":"","env":"araipreprod.agence-xr.io","goal":"Explorer le parcours utilisateur complet de la console ARAI de A a Z et remonter ce qui choque, les incoherences ou manques de clarte.","charter":"Inclus : inscription, connexion, presentation, creation et configuration agent, onglets Agents / Bases de connaissances / Conversations / Outils / Documentation, suppression du compte","conclusion":"Le parcours complet est bloque des l inscription par des Internal Server Errors repetees. De nombreuses frictions UX et incoherences ont ete identifiees sur l ensemble des onglets.","obs":[{"section":"Inscription","action":"Champs obligatoires","observation":"Les champs obligatoires ne sont pas signales par un asterisque *","type":"ux"},{"section":"Inscription","action":"Format mot de passe","observation":"Le format attendu n est pas precise avant la soumission (longueur, majuscule, caracteres speciaux...)","type":"ux"},{"section":"Presentation","action":"Voir la presentation","observation":"Les diapositives defile trop rapidement, pas le temps de lire le texte avant de passer a la suivante","type":"ux"},{"section":"Creation & Config. agent","action":"Choisir une voix","observation":"Le texte du nom de la voix depasse du champ de selection","type":"bug"},{"section":"Creation & Config. agent","action":"Ecouter l apercu des voix","observation":"Les 3 dernieres voix de la liste ne disposent d aucun apercu sonore","type":"bug"},{"section":"Creation & Config. agent","action":"Comprendre le systeme langue / voix","observation":"Fonctionnement peu clair : la voix parle-t-elle forcement dans la langue de son drapeau ? La mention des accents entre parentheses ajoute a la confusion","type":"ux"},{"section":"Creation & Config. agent","action":"Apercu audio (configuration)","observation":"L icone Ecouter l apercu au-dessus du premier message ne produit aucune action au clic","type":"bug"},{"section":"Creation & Config. agent","action":"Support multilingue","observation":"Certaines langues proposees (ex : Norvegien) n ont aucune voix correspondante, incoherence entre langues disponibles et voix proposees","type":"bug"},{"section":"Creation & Config. agent","action":"Duree maximale de conversation","observation":"Le libelle Duree maximale d une conversation en secondes (60-3600) manque de clarte, comportement de l agent en fin de duree non explicite (coupure automatique ?)","type":"ux"},{"section":"Creation & Config. agent","action":"Tools & Integrations","observation":"Cette section reste en anglais meme lorsque l interface est parametree en francais","type":"bug"},{"section":"Creation & Config. agent","action":"Creer l agent (bouton)","observation":"Apres avoir appuye sur Creer Agent, un message pop-up confirme la creation mais le bouton reste grise pendant 8 a 15 secondes avant la redirection vers la page de l agent","type":"bug"},{"section":"Onglet Agents","action":"Trouver le bouton de creation","observation":"Le bouton + de creation d agent est difficile a trouver initialement, un libelle textuel aiderait","type":"ux"},{"section":"Onglet Agents","action":"Restreindre un agent","observation":"L action passe par un clic sur une icone cadenas, du temps a ete necessaire pour le comprendre","type":"ux"},{"section":"Onglet Agents","action":"Enlever la restriction","observation":"Complique de retrouver comment retirer la restriction 20 minutes plus tard, le bouton pourrait s appeler Gerer les restrictions","type":"ux"},{"section":"Onglet Agents","action":"Onglet Transferer agent","observation":"Depuis cet onglet on peut voir les agents transferes, mais on ne peut pas en transferer depuis cet endroit","type":"ux"},{"section":"Onglet Agents","action":"Bouton Modifier vs nom de l agent","observation":"Cliquer sur le nom de l agent permet de configurer le partage uniquement. Cliquer sur Modifier donne acces a tout le reste de la configuration, distinction peu evidente","type":"ux"},{"section":"Onglet Agents","action":"QR code de test","observation":"Le QR code genere renvoie vers une page d erreur, impossible de tester l agent","type":"bug"},{"section":"Onglet Bases de connaissances","action":"Restreindre une base de connaissances","observation":"Comme pour la restriction d agent, l action passe par une icone cadenas, du temps a ete necessaire pour le comprendre","type":"ux"},{"section":"Onglet Conversations","action":"Utiliser le filtre","observation":"La section Filtrer en haut a droite a un positionnement etrange, elle ne s integre pas naturellement dans le contexte de la page","type":"ux"},{"section":"Onglet Conversations","action":"Pagination","observation":"Le bouton Suivant reste cliquable a l infini meme lorsqu il n existe pas d autre page","type":"bug"},{"section":"Onglet Outils","action":"Description des outils","observation":"Les descriptions sont en anglais et ne sont pas entierement visibles","type":"bug"},{"section":"Onglet Outils","action":"Clic sur un outil","observation":"Les outils sont cliquables, cependant le clic ne produit rien sauf un rafraichissement de la page","type":"bug"},{"section":"Onglet Documentation","action":"Clic sur Documentation","observation":"La documentation s ouvre mais l interface bascule automatiquement en anglais","type":"bug"},{"section":"Onglet Documentation","action":"Retour au menu principal","observation":"Le logo ARAI en haut a gauche de la documentation ne renvoie pas au menu principal, difficile de retrouver son chemin","type":"ux"},{"section":"Onglet Documentation","action":"Retour manuel au menu","observation":"En revenant manuellement au menu principal, l interface repasse bien en francais","type":"info"},{"section":"Barre de recherche","action":"Faire des recherches","observation":"La barre de recherche en haut de l interface ne semble pas fonctionner","type":"bug"},{"section":"Suppression du compte","action":"Supprimer le compte","observation":"La suppression declenche un chargement incessant, aucun message de confirmation que le compte a bien ete supprime","type":"bug"}]},{"id":"EXP-02","title":"Parcours utilisateur mobile","tester":"Aladdin","support":"Mobile","date":"2026-04-09","duration":"","env":"araipreprod.agence-xr.io","goal":"Explorer le parcours utilisateur de la console ARAI sur mobile et identifier les problemes specifiques a l affichage et a la navigation mobile. Support : Google Pixel 7 Pro","charter":"Inclus : navigation generale, selection de voix, tableau de bord, bases de connaissances, restrictions, deconnexion","conclusion":"Plusieurs problemes critiques d affichage sur mobile : boutons coupes, menu burger non cliquable, clavier intempestif. La deconnexion reste introuvable.","obs":[{"section":"Selection de voix","action":"Clic sur le selecteur de langue","observation":"Sur mobile, le clavier virtuel s active automatiquement lors du clic sur le selecteur de langue, masque une partie de l ecran. Le meme probleme se produit sur Gerer les agents partages et Gerer les restrictions de base de connaissances","type":"ux"},{"section":"Onglet Tableau de bord","action":"Espacement du titre","observation":"L espace entre le titre Tableau de bord, le bouton Actualiser et la description semble insuffisant, manque d aeration","type":"ux"},{"section":"Onglet Tableau de bord","action":"Icones information i","observation":"Au clic sur une icone i, le message d information s affiche une demi-seconde puis l utilisateur est redirige vers la page associee au lieu de simplement afficher l information","type":"bug"},{"section":"Boutons coupes","action":"Ajouter une base de connaissances","observation":"Dans l onglet Bases de connaissances, le bouton d ajout est coupe et partiellement masque","type":"bug"},{"section":"Boutons coupes","action":"Supprimer un serveur MCP","observation":"En cliquant sur un serveur, on arrive sur la page Modifier le serveur MCP, l icone Supprimer a droite de l ecran est coupee et peu visible","type":"bug"},{"section":"Menu burger","action":"Gerer les restrictions d agents","observation":"Depuis cette page, le menu burger est visible en haut a gauche mais n est pas cliquable","type":"bug"},{"section":"Menu burger","action":"Gerer les restrictions de base de connaissances","observation":"Meme comportement - menu burger visible mais non fonctionnel","type":"bug"},{"section":"Deconnexion","action":"Se deconnecter","observation":"Impossible de trouver le bouton de deconnexion, son emplacement n est pas visible ou intuitif sur mobile","type":"ux"}]}]');
+  state.explora = JSON.parse('[{"id":"EXP-01","project":"PRJ-01","title":"Parcours utilisateur console ARAI","tester":"Aladdin","support":"Desktop","date":"2026-04-09","duration":"","env":"araipreprod.agence-xr.io","goal":"Explorer le parcours utilisateur complet de la console ARAI de A a Z et remonter ce qui choque, les incoherences ou manques de clarte.","charter":"Inclus : inscription, connexion, presentation, creation et configuration agent, onglets Agents / Bases de connaissances / Conversations / Outils / Documentation, suppression du compte","conclusion":"Le parcours complet est bloque des l inscription par des Internal Server Errors repetees. De nombreuses frictions UX et incoherences ont ete identifiees sur l ensemble des onglets.","obs":[{"section":"Inscription","action":"Champs obligatoires","observation":"Les champs obligatoires ne sont pas signales par un asterisque *","type":"ux"},{"section":"Inscription","action":"Format mot de passe","observation":"Le format attendu n est pas precise avant la soumission (longueur, majuscule, caracteres speciaux...)","type":"ux"},{"section":"Presentation","action":"Voir la presentation","observation":"Les diapositives defile trop rapidement, pas le temps de lire le texte avant de passer a la suivante","type":"ux"},{"section":"Creation & Config. agent","action":"Choisir une voix","observation":"Le texte du nom de la voix depasse du champ de selection","type":"bug"},{"section":"Creation & Config. agent","action":"Ecouter l apercu des voix","observation":"Les 3 dernieres voix de la liste ne disposent d aucun apercu sonore","type":"bug"},{"section":"Creation & Config. agent","action":"Comprendre le systeme langue / voix","observation":"Fonctionnement peu clair : la voix parle-t-elle forcement dans la langue de son drapeau ? La mention des accents entre parentheses ajoute a la confusion","type":"ux"},{"section":"Creation & Config. agent","action":"Apercu audio (configuration)","observation":"L icone Ecouter l apercu au-dessus du premier message ne produit aucune action au clic","type":"bug"},{"section":"Creation & Config. agent","action":"Support multilingue","observation":"Certaines langues proposees (ex : Norvegien) n ont aucune voix correspondante, incoherence entre langues disponibles et voix proposees","type":"bug"},{"section":"Creation & Config. agent","action":"Duree maximale de conversation","observation":"Le libelle Duree maximale d une conversation en secondes (60-3600) manque de clarte, comportement de l agent en fin de duree non explicite (coupure automatique ?)","type":"ux"},{"section":"Creation & Config. agent","action":"Tools & Integrations","observation":"Cette section reste en anglais meme lorsque l interface est parametree en francais","type":"bug"},{"section":"Creation & Config. agent","action":"Creer l agent (bouton)","observation":"Apres avoir appuye sur Creer Agent, un message pop-up confirme la creation mais le bouton reste grise pendant 8 a 15 secondes avant la redirection vers la page de l agent","type":"bug"},{"section":"Onglet Agents","action":"Trouver le bouton de creation","observation":"Le bouton + de creation d agent est difficile a trouver initialement, un libelle textuel aiderait","type":"ux"},{"section":"Onglet Agents","action":"Restreindre un agent","observation":"L action passe par un clic sur une icone cadenas, du temps a ete necessaire pour le comprendre","type":"ux"},{"section":"Onglet Agents","action":"Enlever la restriction","observation":"Complique de retrouver comment retirer la restriction 20 minutes plus tard, le bouton pourrait s appeler Gerer les restrictions","type":"ux"},{"section":"Onglet Agents","action":"Onglet Transferer agent","observation":"Depuis cet onglet on peut voir les agents transferes, mais on ne peut pas en transferer depuis cet endroit","type":"ux"},{"section":"Onglet Agents","action":"Bouton Modifier vs nom de l agent","observation":"Cliquer sur le nom de l agent permet de configurer le partage uniquement. Cliquer sur Modifier donne acces a tout le reste de la configuration, distinction peu evidente","type":"ux"},{"section":"Onglet Agents","action":"QR code de test","observation":"Le QR code genere renvoie vers une page d erreur, impossible de tester l agent","type":"bug"},{"section":"Onglet Bases de connaissances","action":"Restreindre une base de connaissances","observation":"Comme pour la restriction d agent, l action passe par une icone cadenas, du temps a ete necessaire pour le comprendre","type":"ux"},{"section":"Onglet Conversations","action":"Utiliser le filtre","observation":"La section Filtrer en haut a droite a un positionnement etrange, elle ne s integre pas naturellement dans le contexte de la page","type":"ux"},{"section":"Onglet Conversations","action":"Pagination","observation":"Le bouton Suivant reste cliquable a l infini meme lorsqu il n existe pas d autre page","type":"bug"},{"section":"Onglet Outils","action":"Description des outils","observation":"Les descriptions sont en anglais et ne sont pas entierement visibles","type":"bug"},{"section":"Onglet Outils","action":"Clic sur un outil","observation":"Les outils sont cliquables, cependant le clic ne produit rien sauf un rafraichissement de la page","type":"bug"},{"section":"Onglet Documentation","action":"Clic sur Documentation","observation":"La documentation s ouvre mais l interface bascule automatiquement en anglais","type":"bug"},{"section":"Onglet Documentation","action":"Retour au menu principal","observation":"Le logo ARAI en haut a gauche de la documentation ne renvoie pas au menu principal, difficile de retrouver son chemin","type":"ux"},{"section":"Onglet Documentation","action":"Retour manuel au menu","observation":"En revenant manuellement au menu principal, l interface repasse bien en francais","type":"info"},{"section":"Barre de recherche","action":"Faire des recherches","observation":"La barre de recherche en haut de l interface ne semble pas fonctionner","type":"bug"},{"section":"Suppression du compte","action":"Supprimer le compte","observation":"La suppression declenche un chargement incessant, aucun message de confirmation que le compte a bien ete supprime","type":"bug"}]},{"id":"EXP-02","project":"PRJ-01","title":"Parcours utilisateur mobile","tester":"Aladdin","support":"Mobile","date":"2026-04-09","duration":"","env":"araipreprod.agence-xr.io","goal":"Explorer le parcours utilisateur de la console ARAI sur mobile et identifier les problemes specifiques a l affichage et a la navigation mobile. Support : Google Pixel 7 Pro","charter":"Inclus : navigation generale, selection de voix, tableau de bord, bases de connaissances, restrictions, deconnexion","conclusion":"Plusieurs problemes critiques d affichage sur mobile : boutons coupes, menu burger non cliquable, clavier intempestif. La deconnexion reste introuvable.","obs":[{"section":"Selection de voix","action":"Clic sur le selecteur de langue","observation":"Sur mobile, le clavier virtuel s active automatiquement lors du clic sur le selecteur de langue, masque une partie de l ecran. Le meme probleme se produit sur Gerer les agents partages et Gerer les restrictions de base de connaissances","type":"ux"},{"section":"Onglet Tableau de bord","action":"Espacement du titre","observation":"L espace entre le titre Tableau de bord, le bouton Actualiser et la description semble insuffisant, manque d aeration","type":"ux"},{"section":"Onglet Tableau de bord","action":"Icones information i","observation":"Au clic sur une icone i, le message d information s affiche une demi-seconde puis l utilisateur est redirige vers la page associee au lieu de simplement afficher l information","type":"bug"},{"section":"Boutons coupes","action":"Ajouter une base de connaissances","observation":"Dans l onglet Bases de connaissances, le bouton d ajout est coupe et partiellement masque","type":"bug"},{"section":"Boutons coupes","action":"Supprimer un serveur MCP","observation":"En cliquant sur un serveur, on arrive sur la page Modifier le serveur MCP, l icone Supprimer a droite de l ecran est coupee et peu visible","type":"bug"},{"section":"Menu burger","action":"Gerer les restrictions d agents","observation":"Depuis cette page, le menu burger est visible en haut a gauche mais n est pas cliquable","type":"bug"},{"section":"Menu burger","action":"Gerer les restrictions de base de connaissances","observation":"Meme comportement - menu burger visible mais non fonctionnel","type":"bug"},{"section":"Deconnexion","action":"Se deconnecter","observation":"Impossible de trouver le bouton de deconnexion, son emplacement n est pas visible ou intuitif sur mobile","type":"ux"}]}]');
   state.expC = 3;
   saveState();
 }
@@ -560,6 +562,7 @@ function nav(page){
   else if(page==='anomalies') a.innerHTML='<button class="btn btn-primary" onclick="openModal(\'anomaly\')">+ Nouveau ticket</button>';
   else if(page==='jdd') a.innerHTML='<button class="btn btn-primary" onclick="openModal(\'jdd\')">+ Nouveau jeu de données</button>';
   else if(page==='explora') a.innerHTML='<button class="btn btn-primary" onclick="openModal(\'explora\')">+ Nouvelle session</button>';
+  else if(page==='projects') a.innerHTML='';
   else a.innerHTML='';
   render(page);
 }
@@ -592,8 +595,7 @@ function statusBadge(s){
 function prioBadge(p){const m={Haute:'b-high',Moyenne:'b-med',Basse:'b-low'};return`<span class="badge ${m[p]||'b-info'}">${p}</span>`;}
 
 function render(page){
-  if(page==='landing') renderProjectBar();
-renderDash();
+  if(page==='landing') renderDash();
   if(page==='dashboard') renderLanding();
   if(page==='us') renderUS();
   if(page==='testcases') renderTC();
@@ -607,6 +609,7 @@ renderDash();
 }
 
 function renderDash(){
+  renderProjectBar();
   renderProjectBar();
   const total=state.tc.length;
   const pass=state.tc.filter(t=>getStatus(t.id)==='pass').length;
@@ -625,7 +628,7 @@ function renderDash(){
 }
 
 function renderUS(){
-  const filtered=curProject==='all'?state.us:state.us.filter(x=>x.project===curProject);
+  const filtered=curPrj==='all'?state.us:state.us.filter(x=>x.project===curPrj);
   document.getElementById('us-count').textContent=filtered.length;
   document.getElementById('us-table').innerHTML=filtered.length===0?'<tr><td colspan="7" class="empty">Aucune user story pour ce projet.</td></tr>':filtered.map(u=>{
     const nb=state.tc.filter(t=>t.us===u.id).length;
@@ -634,7 +637,7 @@ function renderUS(){
 }
 
 function renderTC(){
-  const filtered=curProject==='all'?state.tc:state.tc.filter(x=>x.project===curProject);
+  const filtered=curPrj==='all'?state.tc:state.tc.filter(x=>x.project===curPrj);
   document.getElementById('tc-count').textContent=filtered.length;
   document.getElementById('tc-table').innerHTML=filtered.length===0?'<tr><td colspan="8" class="empty">Aucun cas de test pour ce projet.</td></tr>':filtered.map(t=>{
     const steps=Array.isArray(t.steps)?t.steps:[];
@@ -688,13 +691,14 @@ function renderExec(){
 }
 
 function renderAnomalies(){
-  const filtered=curProject==='all'?state.anomalies:state.anomalies.filter(x=>x.project===curProject);
+  const filtered=curPrj==='all'?state.anomalies:state.anomalies.filter(x=>x.project===curPrj);
   document.getElementById('an-count').textContent=filtered.length;
-  document.getElementById('an-table').innerHTML=state.anomalies.length===0?'<tr><td colspan="9" class="empty">Aucune anomalie enregistrée.</td></tr>':state.anomalies.map(a=>`<tr><td><span class="badge b-info">${a.id}</span></td><td style="font-weight:500;min-width:160px">${a.title}</td><td>${sevBadge(a.sev)}</td><td>${statusBadge(a.status)}</td><td style="font-size:12px">${a.tcId||'—'}</td><td style="font-size:12px">${a.usId||'—'}</td><td style="font-size:12px;color:var(--text2);max-width:180px">${a.desc||'—'}</td><td style="font-size:12px;color:var(--text2);white-space:pre-line;max-width:180px">${a.steps||'—'}</td><td style="font-size:12px;color:var(--text2);max-width:140px">${[a.envBrowser,a.envOs,a.envUrl,a.envVersion].filter(Boolean).join(' / ')||'—'}</td><td style="white-space:nowrap"><button class="btn btn-sm" onclick="editAnomaly('${a.id}')">Modifier</button> <button class="btn btn-sm" style="color:var(--danger)" onclick="deleteAnomaly('${a.id}')">Suppr.</button></td></tr>`).join('');
+  document.getElementById('an-table').innerHTML=filtered.length===0?'<tr><td colspan="9" class="empty">Aucune anomalie pour ce projet.</td></tr>':filtered.map(a=>`<tr><td><span class="badge b-info">${a.id}</span></td><td style="font-weight:500;min-width:160px">${a.title}</td><td>${sevBadge(a.sev)}</td><td>${statusBadge(a.status)}</td><td style="font-size:12px">${a.tcId||'—'}</td><td style="font-size:12px">${a.usId||'—'}</td><td style="font-size:12px;color:var(--text2);max-width:180px">${a.desc||'—'}</td><td style="font-size:12px;color:var(--text2);white-space:pre-line;max-width:180px">${a.steps||'—'}</td><td style="font-size:12px;color:var(--text2);max-width:140px">${[a.envBrowser,a.envOs,a.envUrl,a.envVersion].filter(Boolean).join(' / ')||'—'}</td><td style="white-space:nowrap"><button class="btn btn-sm" onclick="editAnomaly('${a.id}')">Modifier</button> <button class="btn btn-sm" style="color:var(--danger)" onclick="deleteAnomaly('${a.id}')">Suppr.</button></td></tr>`).join('');
 }
 
 function renderCoverage(){
-  document.getElementById('coverage-list').innerHTML=state.us.length===0?'<div class="empty">Aucune user story.</div>':state.us.map(u=>{
+  const usList=curPrj==='all'?state.us:state.us.filter(x=>x.project===curPrj);
+  document.getElementById('coverage-list').innerHTML=usList.length===0?'<div class="empty">Aucune user story pour ce projet.</div>':usList.map(u=>{
     const linked=state.tc.filter(t=>t.us===u.id);
     const p=linked.length?Math.round(linked.filter(t=>getStatus(t.id)==='pass').length/linked.length*100):0;
     const cls=p>=80?'pg':p>=40?'pw':'pb';
@@ -704,10 +708,12 @@ function renderCoverage(){
 }
 
 function renderReport(){
-  const total=state.tc.length;
-  const pass=state.tc.filter(t=>getStatus(t.id)==='pass').length;
-  const fail=state.tc.filter(t=>getStatus(t.id)==='fail').length;
-  const block=state.tc.filter(t=>getStatus(t.id)==='block').length;
+  const tcList=curPrj==='all'?state.tc:state.tc.filter(x=>x.project===curPrj);
+  const anList=curPrj==='all'?state.anomalies:state.anomalies.filter(x=>x.project===curPrj);
+  const total=tcList.length;
+  const pass=tcList.filter(t=>getStatus(t.id)==='pass').length;
+  const fail=tcList.filter(t=>getStatus(t.id)==='fail').length;
+  const block=tcList.filter(t=>getStatus(t.id)==='block').length;
   const pct=total?Math.round(pass/total*100):0;
   const cls=pct>=80?'pg':pct>=50?'pw':'pb';
   document.getElementById('report-cards').innerHTML=`
@@ -715,11 +721,11 @@ function renderReport(){
     <div class="card"><div class="card-label">Passés</div><div class="card-val" style="color:var(--success)">${pass}</div></div>
     <div class="card"><div class="card-label">Échoués</div><div class="card-val" style="color:var(--danger)">${fail}</div></div>
     <div class="card"><div class="card-label">Bloqués</div><div class="card-val" style="color:var(--warn)">${block}</div></div>`;
-  document.getElementById('report-fail').innerHTML=state.tc.filter(t=>['fail','block'].includes(getStatus(t.id))).map(t=>`<tr><td><strong>${t.id}</strong><br><span style="font-size:12px;color:var(--text2)">${t.title}</span></td><td>${badge(getStatus(t.id))}</td><td style="font-size:12px">${state.execData[t.id]?.notes||'—'}</td></tr>`).join('')||'<tr><td colspan="3" class="empty" style="padding:20px">Aucun échec.</td></tr>';
+  document.getElementById('report-fail').innerHTML=tcList.filter(t=>['fail','block'].includes(getStatus(t.id))).map(t=>`<tr><td><strong>${t.id}</strong><br><span style="font-size:12px;color:var(--text2)">${t.title}</span></td><td>${badge(getStatus(t.id))}</td><td style="font-size:12px">${state.execData[t.id]?.notes||'—'}</td></tr>`).join('')||'<tr><td colspan="3" class="empty" style="padding:20px">Aucun échec.</td></tr>';
   const sevs=['Critique','Majeur','Mineur','Suggestion'];
   document.getElementById('report-anomalies').innerHTML=sevs.map(s=>{
-    const n=state.anomalies.filter(a=>a.sev===s).length;
-    const open=state.anomalies.filter(a=>a.sev===s&&a.status==='open').length;
+    const n=anList.filter(a=>a.sev===s).length;
+    const open=anList.filter(a=>a.sev===s&&a.status==='open').length;
     if(n===0) return'';
     return`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:6px;margin-bottom:8px"><span>${sevBadge(s)}</span><span style="font-size:13px">${n} total — <span style="color:var(--danger)">${open} ouvert(s)</span></span></div>`;
   }).join('')||'<div class="empty" style="padding:20px">Aucune anomalie.</div>';
@@ -763,20 +769,20 @@ function openModal(type){
   closeModals(); editUSId=null; editTCId=null; editCyId=null; editAnId=null;
   if(type==='jdd'){openJDDModal();return;}
   if(type==='explora'){openExploraModal();return;}
-  if(type==='project'){openProjectModal();return;}
   if(type==='us'){
     document.getElementById('us-modal-title').textContent='Nouvelle User Story';
     ['us-title','us-desc','us-crit'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('us-prio').value='Haute';
-    fillProjectSelects(curProject!=='all'?curProject:state.projects[0]?.id);
     document.getElementById('modal-us').classList.add('open');
+    setTimeout(()=>fillPrjSelects(curPrj!=='all'?curPrj:(state.projects&&state.projects[0]?.id)||''),10);
   }
   if(type==='tc'){
     document.getElementById('tc-modal-title').textContent='Nouveau cas de test';
     ['tc-title','tc-pre'].forEach(id=>document.getElementById(id).value='');initSteps([]);
     document.getElementById('tc-type').value='Nominal';
-    document.getElementById('tc-us').innerHTML=state.us.map(u=>`<option value="${u.id}">${u.id} — ${u.title}</option>`).join('')||'<option value="">Aucune US</option>';
+    document.getElementById('tc-us').innerHTML='<option value="">Aucune US</option>';
     document.getElementById('modal-tc').classList.add('open');
+    setTimeout(()=>fillPrjSelects(curPrj!=='all'?curPrj:(state.projects&&state.projects[0]?.id)||''),10);
   }
   if(type==='cycle'){
     document.getElementById('cycle-modal-title').textContent='Nouveau cycle de test';
@@ -789,9 +795,10 @@ function openModal(type){
     ['an-title','an-desc','an-steps','an-expected'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('an-sev').value='Majeur';['an-env-browser','an-env-os','an-env-url','an-env-version'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('an-status').value='open';
-    document.getElementById('an-tc').innerHTML='<option value="">— Aucun —</option>'+state.tc.map(t=>`<option value="${t.id}">${t.id} — ${t.title}</option>`).join('');
-    document.getElementById('an-us').innerHTML='<option value="">— Aucune —</option>'+state.us.map(u=>`<option value="${u.id}">${u.id} — ${u.title}</option>`).join('');
+    document.getElementById('an-tc').innerHTML='<option value="">— Aucun —</option>';
+    document.getElementById('an-us').innerHTML='<option value="">— Aucune —</option>';
     document.getElementById('modal-anomaly').classList.add('open');
+    setTimeout(()=>fillPrjSelects(curPrj!=='all'?curPrj:(state.projects&&state.projects[0]?.id)||''),10);
   }
 }
 
@@ -800,23 +807,23 @@ function closeModals(){document.querySelectorAll('.modal-bg').forEach(m=>m.class
 function editUS(id){
   const u=state.us.find(x=>x.id===id); if(!u) return; editUSId=id;
   document.getElementById('us-modal-title').textContent='Modifier la User Story';
-  fillProjectSelects(u.project);
   document.getElementById('us-title').value=u.title;
   document.getElementById('us-desc').value=u.desc||'';
   document.getElementById('us-prio').value=u.prio;
   document.getElementById('us-crit').value=u.crit||'';
   document.getElementById('modal-us').classList.add('open');
+  setTimeout(()=>fillPrjSelects(u.project||''),10);
 }
 function editTC(id){
   const t=state.tc.find(x=>x.id===id); if(!t) return; editTCId=id;
   document.getElementById('tc-modal-title').textContent='Modifier le cas de test';
-  fillProjectSelects(t.project);
   document.getElementById('tc-title').value=t.title;
   document.getElementById('tc-pre').value=t.pre||'';
   initSteps(t.steps||[]);
   document.getElementById('tc-type').value=t.type;
-  document.getElementById('tc-us').innerHTML=state.us.map(u=>`<option value="${u.id}" ${u.id===t.us?'selected':''}>${u.id} — ${u.title}</option>`).join('');
+  document.getElementById('tc-us').innerHTML='<option value="">— Aucune —</option>'+state.us.filter(u=>u.project===t.project).map(u=>`<option value="${u.id}" ${u.id===t.us?'selected':''}>${u.id} — ${u.title}</option>`).join('');
   document.getElementById('modal-tc').classList.add('open');
+  setTimeout(()=>fillPrjSelects(t.project||''),10);
 }
 function editCycle(id){
   const cy=state.cycles.find(x=>x.id===id); if(!cy) return; editCyId=id;
@@ -836,22 +843,23 @@ function editAnomaly(id){
   document.getElementById('an-desc').value=a.desc||'';
   document.getElementById('an-steps').value=a.steps||'';
   document.getElementById('an-expected').value=a.expected||'';document.getElementById('an-env-browser').value=a.envBrowser||'';document.getElementById('an-env-os').value=a.envOs||'';document.getElementById('an-env-url').value=a.envUrl||'';document.getElementById('an-env-version').value=a.envVersion||'';
-  document.getElementById('an-tc').innerHTML='<option value="">— Aucun —</option>'+state.tc.map(t=>`<option value="${t.id}" ${t.id===a.tcId?'selected':''}>${t.id} — ${t.title}</option>`).join('');
-  document.getElementById('an-us').innerHTML='<option value="">— Aucune —</option>'+state.us.map(u=>`<option value="${u.id}" ${u.id===a.usId?'selected':''}>${u.id} — ${u.title}</option>`).join('');
+  document.getElementById('an-tc').innerHTML='<option value="">— Aucun —</option>'+state.tc.filter(t=>t.project===a.project).map(t=>`<option value="${t.id}" ${t.id===a.tcId?'selected':''}>${t.id} — ${t.title}</option>`).join('');
+  document.getElementById('an-us').innerHTML='<option value="">— Aucune —</option>'+state.us.filter(u=>u.project===a.project).map(u=>`<option value="${u.id}" ${u.id===a.usId?'selected':''}>${u.id} — ${u.title}</option>`).join('');
   document.getElementById('modal-anomaly').classList.add('open');
+  setTimeout(()=>fillPrjSelects(a.project||''),10);
 }
 
 function saveUS(){
   const title=document.getElementById('us-title').value.trim(); if(!title){alert('Titre obligatoire.');return;}
-  if(editUSId){const u=state.us.find(x=>x.id===editUSId);u.title=title;u.project=document.getElementById('us-project').value;u.desc=document.getElementById('us-desc').value;u.prio=document.getElementById('us-prio').value;u.crit=document.getElementById('us-crit').value;}
-  else{const id='US-'+String(state.usC++).padStart(2,'0');state.us.push({id,title,project:document.getElementById('us-project').value,desc:document.getElementById('us-desc').value,prio:document.getElementById('us-prio').value,crit:document.getElementById('us-crit').value});}
+  if(editUSId){const u=state.us.find(x=>x.id===editUSId);u.title=title;const _uspj2=document.getElementById('us-prj');if(_uspj2)u.project=_uspj2.value;u.desc=document.getElementById('us-desc').value;u.prio=document.getElementById('us-prio').value;u.crit=document.getElementById('us-crit').value;}
+  else{const _uspj=document.getElementById('us-prj');const prj=_uspj?_uspj.value:'';const id=nextIdForProject('US',state.us,prj);state.us.push({id,title,project:prj,desc:document.getElementById('us-desc').value,prio:document.getElementById('us-prio').value,crit:document.getElementById('us-crit').value});}
   saveState();closeModals();renderUS();renderDash();
 }
 function saveTC(){
   const title=document.getElementById('tc-title').value.trim(); if(!title){alert('Titre obligatoire.');return;}
   const usVal=document.getElementById('tc-us').value;
-  if(editTCId){const t=state.tc.find(x=>x.id===editTCId);t.title=title;t.project=document.getElementById('tc-project').value;t.us=usVal;t.type=document.getElementById('tc-type').value;t.pre=document.getElementById('tc-pre').value;t.steps=getSteps();t.expected='';}
-  else{const id='TC-'+String(state.tcC++).padStart(3,'0');state.tc.push({id,title,project:document.getElementById('tc-project').value,us:usVal,type:document.getElementById('tc-type').value,pre:document.getElementById('tc-pre').value,steps:getSteps(),expected:''});state.execData[id]={status:'todo',notes:''};}
+  if(editTCId){const t=state.tc.find(x=>x.id===editTCId);t.title=title;const _tcpj2=document.getElementById('tc-prj');if(_tcpj2)t.project=_tcpj2.value;t.us=usVal;t.type=document.getElementById('tc-type').value;t.pre=document.getElementById('tc-pre').value;t.steps=getSteps();t.expected='';}
+  else{const _tcpj=document.getElementById('tc-prj');const prj=_tcpj?_tcpj.value:'';const id=nextIdForProject('TC',state.tc,prj);state.tc.push({id,title,project:prj,us:usVal,type:document.getElementById('tc-type').value,pre:document.getElementById('tc-pre').value,steps:getSteps(),expected:''});state.execData[id]={status:'todo',notes:''};}
   saveState();closeModals();renderTC();renderDash();
 }
 function saveCycle(){
@@ -863,9 +871,9 @@ function saveCycle(){
 }
 function saveAnomaly(){
   const title=document.getElementById('an-title').value.trim(); if(!title){alert('Titre obligatoire.');return;}
-  const data={title,project:document.getElementById('an-project').value,sev:document.getElementById('an-sev').value,status:document.getElementById('an-status').value,tcId:document.getElementById('an-tc').value,usId:document.getElementById('an-us').value,desc:document.getElementById('an-desc').value,steps:document.getElementById('an-steps').value,expected:document.getElementById('an-expected').value,envBrowser:document.getElementById('an-env-browser').value,envOs:document.getElementById('an-env-os').value,envUrl:document.getElementById('an-env-url').value,envVersion:document.getElementById('an-env-version').value};
+  const _anpj=document.getElementById('an-prj');const data={title,project:_anpj?_anpj.value:'',sev:document.getElementById('an-sev').value,status:document.getElementById('an-status').value,tcId:document.getElementById('an-tc').value,usId:document.getElementById('an-us').value,desc:document.getElementById('an-desc').value,steps:document.getElementById('an-steps').value,expected:document.getElementById('an-expected').value,envBrowser:document.getElementById('an-env-browser').value,envOs:document.getElementById('an-env-os').value,envUrl:document.getElementById('an-env-url').value,envVersion:document.getElementById('an-env-version').value};
   if(editAnId){const a=state.anomalies.find(x=>x.id===editAnId);Object.assign(a,data);}
-  else{const id='AN-'+String(state.anC++).padStart(3,'0');state.anomalies.push({id,...data});}
+  else{const id=nextIdForProject('AN',state.anomalies,data.project);state.anomalies.push({id,...data});}
   saveState();closeModals();renderAnomalies();renderDash();
 }
 
@@ -942,8 +950,9 @@ function getSteps(){
 }
 
 function renderJDD(){
-  document.getElementById('jdd-count').textContent=state.jdd.length;
-  document.getElementById('jdd-table').innerHTML=state.jdd.length===0?'<tr><td colspan="6" class="empty">Aucun jeu de données. Créez-en un pour paramétrer vos cas de test.</td></tr>':state.jdd.map(j=>{
+  const _fjdd=curPrj==='all'?state.jdd:state.jdd.filter(x=>x.project===curPrj);
+  document.getElementById('jdd-count').textContent=_fjdd.length;
+  document.getElementById('jdd-table').innerHTML=_fjdd.length===0?'<tr><td colspan="6" class="empty">Aucun jeu de données pour ce projet.</td></tr>':_fjdd.map(j=>{
     const usedIn=state.tc.filter(t=>{const steps=Array.isArray(t.steps)?t.steps:[];return steps.some(s=>(s.action+s.expected).includes('${'+j.name+'}'));});
     const varsHtml=j.vars.map(v=>`<div style="font-size:11px;margin-bottom:3px"><code style="background:rgba(0,0,0,.06);padding:1px 5px;border-radius:3px;color:var(--c1)">\${${v.key}}</code> = <span style="color:var(--text2)">${v.value}</span></div>`).join('');
     return`<tr><td><span class="badge b-info">${j.id}</span></td><td style="font-weight:500">${j.name}</td><td style="font-size:12px;color:var(--text2)">${j.desc||'—'}</td><td style="min-width:200px">${varsHtml||'—'}</td><td style="font-size:12px">${usedIn.length>0?usedIn.map(t=>`<span class="tag">${t.id}</span>`).join(''):'—'}</td><td style="white-space:nowrap"><button class="btn btn-sm" onclick="editJDD('${j.id}')">Modifier</button> <button class="btn btn-sm" style="color:var(--danger)" onclick="deleteJDD('${j.id}')">Suppr.</button></td></tr>`;
@@ -974,6 +983,7 @@ function getJDDVars(){
 let editJDDId=null;
 function openJDDModal(){
   closeModals(); editJDDId=null;
+  setTimeout(()=>fillPrjSelects(curPrj!=='all'?curPrj:(state.projects&&state.projects[0]?.id)||''),10);
   document.getElementById('jdd-modal-title').textContent='Nouveau jeu de données';
   document.getElementById('jdd-name').value='';
   document.getElementById('jdd-desc').value='';
@@ -990,9 +1000,9 @@ function editJDD(id){
 }
 function saveJDD(){
   const name=document.getElementById('jdd-name').value.trim(); if(!name){alert('Nom obligatoire.');return;}
-  const data={name,desc:document.getElementById('jdd-desc').value,vars:getJDDVars()};
+  const _jddpj=document.getElementById('jdd-prj');const data={name,project:_jddpj?_jddpj.value:'',desc:document.getElementById('jdd-desc').value,vars:getJDDVars()};
   if(editJDDId){const j=state.jdd.find(x=>x.id===editJDDId);Object.assign(j,data);}
-  else{const id='JDD-'+String(state.jddC++).padStart(2,'0');state.jdd.push({id,...data});}
+  else{const prj=document.getElementById('jdd-prj')?.value||'';const id=nextIdForProject('JDD',state.jdd,prj);data.project=prj;state.jdd.push({id,...data});}
   saveState();closeModals();renderJDD();
 }
 function deleteJDD(id){if(!confirm('Supprimer ce jeu de données ?'))return;state.jdd=state.jdd.filter(j=>j.id!==id);saveState();renderJDD();}
@@ -1007,149 +1017,143 @@ function resolveJDD(text,jddId){
 
 function exportApp(){
   try {
-    // Serialize current state into the HTML so data travels with the file
     const stateJson = JSON.stringify(state);
+    const tag = '<scr'+'ipt id="__embedded_state__">window.__TESTLAMP_STATE__='+stateJson+';</'+'script>';
     let html = document.documentElement.outerHTML;
-    // Replace the loadState function to return embedded data on first load
-    const injection = '<script id="__embedded_state__">window.__TESTLAMP_STATE__=' + stateJson + ';</' + 'script>';
-    // Remove previous injection if any
-    html = html.replace(/<script id=__embedded_state__>[\s\S]*?<\/script>/,'');
-    // Inject before closing </head>
-    html = html.replace('</head>', injection + '</head>');
-    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url;
-    a.download='TestLamp_ARAI.html';
+    const start = html.indexOf('<scr'+'ipt id="__embedded_state__">');
+    if(start !== -1) {
+      const end = html.indexOf('</'+'script>', start) + ('</scri'+'pt>').length;
+      html = html.slice(0, start) + html.slice(end);
+    }
+    html = html.replace('</head>', tag + '</head>');
+    const blob = new Blob([html], {type: 'text/html;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'index.html';
     document.body.appendChild(a);
     a.click();
-    setTimeout(()=>{URL.revokeObjectURL(url);document.body.removeChild(a);},200);
-    alert('Export réussi ! Tes données sont intégrées dans le fichier.');
-  } catch(e){alert('Erreur export: '+e.message);}
+    setTimeout(() => { URL.revokeObjectURL(url); document.body.removeChild(a); }, 300);
+  } catch(e) { alert('Erreur export: ' + e.message); }
 }
 
-// ── PROJECTS ──
-let curProject = 'all';
-let editPrjId = null;
-let selectedColor = '1F4E79';
 
-function getProjectName(id){ const p=state.projects.find(x=>x.id===id); return p?p.name:id||'—'; }
-function getProjectColor(id){ const p=state.projects.find(x=>x.id===id); return p?p.color:'888888'; }
+// ── PROJECT SYSTEM ──
+let curPrj = 'all';
+let editPrjId = null;
+let pickColor = '1F4E79';
+
+function prjOpts(sel){
+  return state.projects.map(p=>`<option value="${p.id}" ${p.id===sel?'selected':''}>${p.name}</option>`).join('');
+}
+function fillPrjSelects(sel){
+  ['us-prj','tc-prj','an-prj','exp-prj','jdd-prj'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=prjOpts(sel); });
+  updateLinkedSelects(sel);
+}
+function nextIdForProject(prefix, arr, prjId){
+  const prjItems = arr.filter(x=>x.project===prjId);
+  const nums = prjItems.map(x=>{const m=x.id.match(/(\d+)$/);return m?parseInt(m[1],10):0;});
+  const next = nums.length?Math.max(...nums)+1:1;
+  const pad = prefix==='TC'||prefix==='AN'?3:2;
+  const prjNum = prjId.replace(/\D/g,'')||'0';
+  return prefix+'-P'+prjNum+'-'+String(next).padStart(pad,'0');
+}
+function updateLinkedSelects(prjId){
+  const tcUs=document.getElementById('tc-us');
+  if(tcUs){
+    const curVal=tcUs.value;
+    const filtered=state.us.filter(u=>u.project===prjId);
+    tcUs.innerHTML='<option value="">— Aucune —</option>'+filtered.map(u=>`<option value="${u.id}" ${u.id===curVal?'selected':''}>${u.id} — ${u.title}</option>`).join('');
+  }
+  const anTc=document.getElementById('an-tc');
+  if(anTc){
+    const curVal=anTc.value;
+    const filtered=state.tc.filter(t=>t.project===prjId);
+    anTc.innerHTML='<option value="">— Aucun —</option>'+filtered.map(t=>`<option value="${t.id}" ${t.id===curVal?'selected':''}>${t.id} — ${t.title}</option>`).join('');
+  }
+  const anUs=document.getElementById('an-us');
+  if(anUs){
+    const curVal=anUs.value;
+    const filtered=state.us.filter(u=>u.project===prjId);
+    anUs.innerHTML='<option value="">— Aucune —</option>'+filtered.map(u=>`<option value="${u.id}" ${u.id===curVal?'selected':''}>${u.id} — ${u.title}</option>`).join('');
+  }
+}
+function getPrj(id){ return state.projects.find(p=>p.id===id)||{name:'—',color:'888888'}; }
 
 function renderProjectBar(){
-  const bar=document.getElementById('project-bar');
-  if(!bar) return;
-  bar.innerHTML=`<span style="font-size:11px;color:var(--text2);font-weight:500;margin-right:4px">PROJET :</span>
-    <div class="project-tab project-tab-all ${curProject==='all'?'active':''}" onclick="setProject('all')">Tous</div>
-    ${state.projects.map(p=>`<div class="project-tab ${curProject===p.id?'active':''}" style="${curProject===p.id?'background:#'+p.color+';':'color:#'+p.color+';border-color:#'+p.color+';'}" onclick="setProject('${p.id}')">${p.name}</div>`).join('')}`;
+  const bar=document.getElementById('project-bar'); if(!bar) return;
+  const def=state.projects[0]?.id;
+  bar.innerHTML=`<span style="font-size:11px;font-weight:600;color:var(--text2);margin-right:4px">PROJET :</span>`
+    +`<div class="prj-tab ${curPrj==='all'?'on':''}" style="${curPrj==='all'?'background:var(--text2)':''}" onclick="setPrj('all')">Tous</div>`
+    +state.projects.map(p=>`<div class="prj-tab ${curPrj===p.id?'on':''}" style="${curPrj===p.id?'background:#'+p.color+';':'color:#'+p.color+';border-color:#'+p.color+';'}" onclick="setPrj('${p.id}')">${p.name}</div>`).join('');
 }
 
-function setProject(id){
-  curProject=id;
+function setPrj(id){
+  curPrj=id;
   renderProjectBar();
   const active=document.querySelector('.section.active');
   if(active) render(active.id.replace('sec-',''));
 }
 
+function filtered(arr){ return curPrj==='all'?arr:arr.filter(x=>x.project===curPrj); }
+
 function renderProjects(){
+  if(!state.projects) state.projects=[];
   document.getElementById('prj-count').textContent=state.projects.length;
-  document.getElementById('prj-list').innerHTML=state.projects.map(p=>{
-    const us=state.us.filter(x=>x.project===p.id).length;
-    const tc=state.tc.filter(x=>x.project===p.id).length;
-    const an=state.anomalies.filter(x=>x.project===p.id&&x.status==='open').length;
-    const exp=state.explora.filter(x=>x.project===p.id).length;
-    const pass=state.tc.filter(x=>x.project===p.id&&getStatus(x.id)==='pass').length;
-    const pct=tc?Math.round(pass/tc*100):0;
-    const cls=pct>=80?'pg':pct>=50?'pw':'pb';
-    return`<div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer" onclick="setProject('${p.id}');nav('dashboard')">
-      <div style="background:#${p.color};padding:14px 16px;display:flex;justify-content:space-between;align-items:center">
-        <div style="font-size:15px;font-weight:600;color:#fff">${p.name}</div>
-        <div style="display:flex;gap:6px">
-          <button class="btn btn-sm" style="padding:3px 8px;font-size:11px;background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.3);color:#fff" onclick="event.stopPropagation();editProject('${p.id}')">Modifier</button>
-          ${state.projects.length>1?`<button class="btn btn-sm" style="padding:3px 8px;font-size:11px;background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.3);color:#fff" onclick="event.stopPropagation();deleteProject('${p.id}')">Suppr.</button>`:''}
+  document.getElementById('prj-grid').innerHTML=state.projects.length===0
+    ?'<div class="empty">Aucun projet. Cliquez sur "+ Nouveau projet".</div>'
+    :state.projects.map(p=>{
+      const us=state.us.filter(x=>x.project===p.id).length;
+      const tc=state.tc.filter(x=>x.project===p.id).length;
+      const an=state.anomalies.filter(x=>x.project===p.id&&x.status==='open').length;
+      const exp=state.explora.filter(x=>x.project===p.id).length;
+      const pass=state.tc.filter(x=>x.project===p.id&&getStatus(x.id)==='pass').length;
+      const pct=tc?Math.round(pass/tc*100):0;
+      const cls=pct>=80?'pg':pct>=50?'pw':'pb';
+      return`<div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="background:#${p.color};padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:14px;font-weight:600;color:#fff">${p.name}</span>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-sm" style="background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.3);color:#fff;font-size:11px" onclick="editPrj('${p.id}')">Modifier</button>
+            ${state.projects.length>1?`<button class="btn btn-sm" style="background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.3);color:#fff;font-size:11px" onclick="deletePrj('${p.id}')">Suppr.</button>`:''}
+          </div>
         </div>
-      </div>
-      <div style="padding:14px 16px">
-        <div style="font-size:12px;color:var(--text2);margin-bottom:12px">${p.desc||'Aucune description'}</div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">
-          <div style="text-align:center"><div style="font-size:18px;font-weight:600;color:#${p.color}">${us}</div><div style="font-size:10px;color:var(--text2)">US</div></div>
-          <div style="text-align:center"><div style="font-size:18px;font-weight:600;color:#${p.color}">${tc}</div><div style="font-size:10px;color:var(--text2)">Cas de test</div></div>
-          <div style="text-align:center"><div style="font-size:18px;font-weight:600;color:var(--danger)">${an}</div><div style="font-size:10px;color:var(--text2)">Anomalies</div></div>
-          <div style="text-align:center"><div style="font-size:18px;font-weight:600;color:var(--text2)">${exp}</div><div style="font-size:10px;color:var(--text2)">Sessions</div></div>
+        <div style="padding:12px 14px">
+          <div style="font-size:12px;color:var(--text2);margin-bottom:10px">${p.desc||'Aucune description'}</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;text-align:center">
+            <div><div style="font-size:17px;font-weight:600;color:#${p.color}">${us}</div><div style="font-size:10px;color:var(--text2)">US</div></div>
+            <div><div style="font-size:17px;font-weight:600;color:#${p.color}">${tc}</div><div style="font-size:10px;color:var(--text2)">Cas</div></div>
+            <div><div style="font-size:17px;font-weight:600;color:var(--danger)">${an}</div><div style="font-size:10px;color:var(--text2)">Anomalies</div></div>
+            <div><div style="font-size:17px;font-weight:600;color:var(--text2)">${exp}</div><div style="font-size:10px;color:var(--text2)">Sessions</div></div>
+          </div>
+          <div class="prog-bar" style="height:5px"><div class="prog-fill ${cls}" style="width:${pct||2}%"></div></div>
+          <div style="font-size:11px;color:var(--text2);margin-top:4px">${pct}% de réussite</div>
         </div>
-        <div class="prog-bar" style="height:6px"><div class="prog-fill ${cls}" style="width:${pct||2}%"></div></div>
-        <div style="font-size:11px;color:var(--text2);margin-top:4px">${pct}% des cas passés</div>
-      </div>
-    </div>`;
-  }).join('');
+      </div>`;
+    }).join('');
 }
 
-function fillProjectSelects(selectedId){
-  const opts = state.projects.map(p=>`<option value="${p.id}" ${p.id===selectedId?'selected':''}>${p.name}</option>`).join('');
-  ['us-project','tc-project','an-project','exp-project'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.innerHTML=opts;
-  });
-}
+function openPrjModal(){ closeModals(); editPrjId=null; pickColor='1F4E79'; document.getElementById('prj-modal-title').textContent='Nouveau projet'; document.getElementById('prj-name').value=''; document.getElementById('prj-desc').value=''; highlightColor('1F4E79'); document.getElementById('modal-prj').classList.add('open'); }
+function editPrj(id){ const p=getPrj(id); editPrjId=id; pickColor=p.color; document.getElementById('prj-modal-title').textContent='Modifier le projet'; document.getElementById('prj-name').value=p.name; document.getElementById('prj-desc').value=p.desc||''; highlightColor(p.color); document.getElementById('modal-prj').classList.add('open'); }
+function savePrj(){ const name=document.getElementById('prj-name').value.trim(); if(!name){alert('Nom obligatoire.');return;} if(!state.projects) state.projects=[]; if(editPrjId){const p=state.projects.find(x=>x.id===editPrjId);p.name=name;p.desc=document.getElementById('prj-desc').value;p.color=pickColor;} else{const id='PRJ-'+String(state.prjC++).padStart(2,'0');state.projects.push({id,name,desc:document.getElementById('prj-desc').value,color:pickColor});} saveState();closeModals();renderProjects();renderProjectBar(); }
+function deletePrj(id){ if(!confirm('Supprimer ce projet ?'))return; state.projects=state.projects.filter(p=>p.id!==id); if(curPrj===id) curPrj='all'; saveState();renderProjects();renderProjectBar(); }
+function highlightColor(c){ document.querySelectorAll('.cpick').forEach(el=>{ el.style.outline=el.dataset.c===c?'3px solid #'+el.dataset.c+'; outline-offset:2px':'none'; el.style.transform=el.dataset.c===c?'scale(1.2)':'scale(1)'; }); }
 
-function openProjectModal(){
-  closeModals(); editPrjId=null; selectedColor='1F4E79';
-  document.getElementById('prj-modal-title').textContent='Nouveau projet';
-  document.getElementById('prj-name').value='';
-  document.getElementById('prj-desc').value='';
-  document.querySelectorAll('.color-pick').forEach(el=>{
-    el.style.border=el.dataset.color==='1F4E79'?'3px solid #1F4E79':'3px solid transparent';
-  });
-  document.getElementById('modal-project').classList.add('open');
-}
-
-function editProject(id){
-  const p=state.projects.find(x=>x.id===id); if(!p) return; editPrjId=id; selectedColor=p.color;
-  document.getElementById('prj-modal-title').textContent='Modifier le projet';
-  document.getElementById('prj-name').value=p.name;
-  document.getElementById('prj-desc').value=p.desc||'';
-  document.querySelectorAll('.color-pick').forEach(el=>{
-    el.style.border=el.dataset.color===p.color?`3px solid #${p.color}`:'3px solid transparent';
-  });
-  document.getElementById('modal-project').classList.add('open');
-}
-
-function saveProject(){
-  const name=document.getElementById('prj-name').value.trim(); if(!name){alert('Nom obligatoire.');return;}
-  if(editPrjId){
-    const p=state.projects.find(x=>x.id===editPrjId);
-    p.name=name; p.desc=document.getElementById('prj-desc').value; p.color=selectedColor;
-  } else {
-    const id='PRJ-'+String(state.prjC++).padStart(2,'0');
-    state.projects.push({id,name,desc:document.getElementById('prj-desc').value,color:selectedColor});
-  }
-  saveState(); closeModals(); renderProjects(); renderProjectBar();
-}
-
-function deleteProject(id){
-  if(!confirm('Supprimer ce projet ? Les données liées resteront mais ne seront plus associées.')) return;
-  state.projects=state.projects.filter(p=>p.id!==id);
-  if(curProject===id) curProject='all';
-  saveState(); renderProjects(); renderProjectBar();
-}
-
-document.addEventListener('click', e=>{
-  if(e.target.classList.contains('color-pick')){
-    selectedColor=e.target.dataset.color;
-    document.querySelectorAll('.color-pick').forEach(el=>{
-      el.style.border=el.dataset.color===selectedColor?`3px solid #${selectedColor}`:'3px solid transparent';
-    });
-  }
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('cpick')){ pickColor=e.target.dataset.c; highlightColor(pickColor); }
 });
+
+
 
 document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModals();}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModals();});
 
 function renderExplora(){
-  document.getElementById('exp-count').textContent=state.explora.length;
+  const _fexp=curPrj==='all'?state.explora:state.explora.filter(x=>x.project===curPrj);
+  document.getElementById('exp-count').textContent=_fexp.length;
   const el=document.getElementById('exp-list');
-  if(state.explora.length===0){el.innerHTML='<div class="empty">Aucune session exploratoire. Cliquez sur "+ Nouvelle session".</div>';return;}
-  el.innerHTML=state.explora.map(s=>{
+  if(_fexp.length===0){el.innerHTML='<div class="empty">Aucune session exploratoire pour ce projet. Cliquez sur "+ Nouvelle session".</div>';return;}
+  el.innerHTML=_fexp.map(s=>{
     const sevMap={bug:'b-fail',ux:'b-block',info:'b-todo',suggestion:'b-low'};
     const sevLbl={bug:'Bug',ux:'Friction UX',info:'Info',suggestion:'Suggestion'};
     const obsHtml=s.obs&&s.obs.length>0?s.obs.map(o=>`
@@ -1205,9 +1209,10 @@ function renderExplora(){
 let editExpId=null;
 function openExploraModal(){
   closeModals(); editExpId=null;
+  const _defPrjE=curPrj!=='all'?curPrj:(state.projects&&state.projects[0]?.id)||'';
+  setTimeout(()=>fillPrjSelects(_defPrjE),10);
   document.getElementById('exp-modal-title').textContent='Nouvelle session de test exploratoire';
   ['exp-title','exp-duration','exp-conclusion','exp-goal','exp-charter'].forEach(id=>document.getElementById(id).value='');
-  fillProjectSelects(curProject!=='all'?curProject:state.projects[0]?.id);
     document.getElementById('exp-tester').value='Aladdin';
   document.getElementById('exp-env').value='araipreprod.agence-xr.io';
   document.getElementById('exp-support').value='Desktop';
@@ -1263,9 +1268,9 @@ function getExpObs(){
 }
 function saveExplora(){
   const title=document.getElementById('exp-title').value.trim(); if(!title){alert('Titre obligatoire.');return;}
-  const data={title,project:document.getElementById('exp-project').value,tester:document.getElementById('exp-tester').value,support:document.getElementById('exp-support').value,date:document.getElementById('exp-date').value,duration:document.getElementById('exp-duration').value,env:document.getElementById('exp-env').value,goal:document.getElementById('exp-goal').value,charter:document.getElementById('exp-charter').value,conclusion:document.getElementById('exp-conclusion').value,obs:getExpObs()};
+  const _exppj=document.getElementById('exp-prj');const data={title,project:_exppj?_exppj.value:'',tester:document.getElementById('exp-tester').value,support:document.getElementById('exp-support').value,date:document.getElementById('exp-date').value,duration:document.getElementById('exp-duration').value,env:document.getElementById('exp-env').value,goal:document.getElementById('exp-goal').value,charter:document.getElementById('exp-charter').value,conclusion:document.getElementById('exp-conclusion').value,obs:getExpObs()};
   if(editExpId){const s=state.explora.find(x=>x.id===editExpId);Object.assign(s,data);}
-  else{const id='EXP-'+String(state.expC++).padStart(2,'0');state.explora.push({id,...data});}
+  else{const id=nextIdForProject('EXP',state.explora,data.project);state.explora.push({id,...data});}
   saveState();closeModals();renderExplora();
 }
 function deleteExplora(id){if(!confirm('Supprimer cette session ?'))return;state.explora=state.explora.filter(s=>s.id!==id);saveState();renderExplora();}
