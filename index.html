@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="fr"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1686,15 +1687,21 @@ function resolveJDD(text,jddId){
 
 function exportApp(){
   try {
-    const stateJson = JSON.stringify(state);
+    const stateJson = JSON.stringify(state).replace(/<\//g, '<\\/');
     const tag = '<scr'+'ipt id="__embedded_state__">window.__TESTLAMP_STATE__='+stateJson+';</'+'script>';
-    let html = document.documentElement.outerHTML;
-    const start = html.indexOf('<scr'+'ipt id="__embedded_state__">');
-    if(start !== -1) {
-      const end = html.indexOf('</'+'script>', start) + ('</scri'+'pt>').length;
-      html = html.slice(0, start) + html.slice(end);
-    }
-    html = html.replace('</head>', tag + '</head>');
+    let html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    // Remove old embedded state
+    const re = /<script id="__embedded_state__">[\s\S]*?<\/script>/;
+    html = html.replace(re, '');
+    // Remove stale DOM content from dynamic containers to avoid conflicts on reload
+    const dynamicIds = ['us-table','tc-table','an-table','jdd-table','exec-table','coverage-list',
+      'prj-grid','prj-count','us-count','tc-count','an-count','jdd-count','report-cards',
+      'report-fail','report-anomalies','exp-grid','project-bar','dashboard-content'];
+    dynamicIds.forEach(id => {
+      const regex = new RegExp('(<[^>]+id="'+id+'"[^>]*>)[\\s\\S]*?(</(?:tbody|div|span)[^>]*>)', 'i');
+      html = html.replace(regex, '$1$2');
+    });
+    html = html.replace('</head>', tag + '\n</head>');
     const blob = new Blob([html], {type: 'text/html;charset=utf-8'});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
